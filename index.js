@@ -11,12 +11,9 @@ function normalizeSeparator(string) {
   return normalizeSeparator(replacement)
 }
 
-function hasHeaderDuplicated(array) {
-  const duplicated = []
-  array.filter(function (element, index) {
-    if (array.indexOf(element) !== index) {
-      duplicated.push(element)
-    }
+function getHeaderDuplicated(array) {
+  const duplicated = array.filter(function (element, index) {
+    return array.indexOf(element) !== index
   })
   return duplicated
 }
@@ -25,7 +22,7 @@ function isInvalidPhoneString(string) {
   if (string === "" || string.length < 7) {
     return true
   }
-  const regex = new RegExp("[a-zA-z]")
+  const regex = /[a-zA-z]/
   return regex.test(string)
 }
 
@@ -46,11 +43,25 @@ function mergeData(acumulator, element) {
     if (acumulator[acumulatorProps] === element[acumulatorProps]) {
       tempObj[acumulatorProps] = element[acumulatorProps]
     } else {
-      const removeDuplicatedValues = [...new Set([...acumulator[acumulatorProps], ...element[acumulatorProps],])]
+      const removeDuplicatedValues = [
+        ...new Set([
+          ...acumulator[acumulatorProps],
+          ...element[acumulatorProps],
+        ]),
+      ]
       tempObj[acumulatorProps] = removeDuplicatedValues
     }
   }
   return tempObj
+}
+
+function isValidParameter(string) {
+  const conditions = {
+    yes: true,
+    y: true,
+    1: true,
+  }
+  return conditions[string] || false
 }
 
 try {
@@ -66,7 +77,7 @@ try {
   const header = splitedLines[0].replace(/"/g, "").split(",")
   const normalizeLines = (element) => normalizeSeparator(element).replace(/"/g, "")
   const normalizedLines = splitedLines.map(normalizeLines)
-  const elementsHeaderDuplicated = hasHeaderDuplicated(header)
+  const elementsHeaderDuplicated = getHeaderDuplicated(header)
 
   for (keyDuplicated of elementsHeaderDuplicated) {
     objHeaderDuplicated[keyDuplicated] = []
@@ -76,45 +87,44 @@ try {
   for (let i = 1; i < normalizedLines.length; i++) {
     let currentLine = normalizedLines[i].split(",")
     const objGeneral = {}
-    objEmail.addresses = []
-    objPhone.addresses = []
+    objEmail.addreses = []
+    objPhone.addreses = []
 
     //Iterate take columns
     for (let j = 0; j < header.length; j++) {
-      //Filter and adjust columns rapeated for an array
-      const keyFilter = Object.keys(objHeaderDuplicated).filter(
-        (element) => element == header[j]
-      )
-      if (
-        !(Object.keys(objHeaderDuplicated).length === 0) &&
-        keyFilter == header[j]
-      ) {
-        if (currentLine[j] == "") {
-          dataDiscarted.push({eid: currentLine[header.indexOf("eid")],[header[j]]: currentLine[j].trim(),})
-        } else {
-          const adjustmentHeaderArray = currentLine[j].split("/")
+      const columnName = header[j]
+      const cellValue = currentLine[j]
 
-          //Populate repeated header in an array
+      //Filter and adjust columns rapeated
+      const keyFilter = Object.keys(objHeaderDuplicated).filter(
+        (element) => element == columnName
+      )
+      if (!(Object.keys(objHeaderDuplicated).length === 0) && keyFilter == columnName) {
+        if (cellValue == "") {
+          dataDiscarted.push({
+            eid: currentLine[header.indexOf("eid")],
+            [columnName]: cellValue.trim(),
+          })
+        } else {
+          const adjustmentHeaderArray = cellValue.split("/")
+
+          //Populate repeated header
           for (headerValue of adjustmentHeaderArray) {
             objHeaderDuplicated[keyFilter].push(headerValue.trim())
           }
         }
 
-      //Filter address types email
-      } else if (
-        !(currentLine[j].indexOf("@") == -1) &&
-        !(currentLine[j].indexOf(".") == -1)
-      ) {
-        const quantityOfEmails = currentLine[j].match(
-          new RegExp("@", "g")
-        ).length
+        //Filter addres types email
+      } else if (!(cellValue.indexOf("@") == -1) && !(cellValue.indexOf(".") == -1)) {
+        const quantityOfEmails = cellValue.match(/@/g).length
         if (quantityOfEmails >= 1) {
-          const adjustmentEmailArray = currentLine[j].split(/[ /]/)
+          const adjustmentEmailArray = cellValue.split(/[ /]/)
           const adjustmentEmailArrayLength = adjustmentEmailArray.length
 
           //Remove non emails
           if (adjustmentEmailArrayLength > quantityOfEmails) {
-            const quantityOfNonEmails = adjustmentEmailArrayLength - quantityOfEmails
+            const quantityOfNonEmails =
+              adjustmentEmailArrayLength - quantityOfEmails
             for (let k = 0; k < adjustmentEmailArrayLength; k++) {
               if (adjustmentEmailArray[k].indexOf("@") == -1) {
                 adjustmentEmailArray.splice(k, quantityOfNonEmails)
@@ -122,98 +132,78 @@ try {
             }
           }
 
-          //Populate object email addresses
+          //Populate object email addreses
           for (emailValue of adjustmentEmailArray) {
-            const tagGenerator = header[j].split(" ")
+            const tagGenerator = columnName.split(" ")
             for (let k = 0; k < tagGenerator.length; k++) {
               if (tagGenerator[k] == "email") {
                 tagGenerator.splice(k, 1)
               }
             }
-            objEmail.addresses.push({
+            objEmail.addreses.push({
               type: "email",
               tags: tagGenerator,
-              address: emailValue.trim(),
+              addres: emailValue.trim(),
             })
           }
         }
 
-      //Filter address types phone
-      } else if (!isInvalidPhoneString(currentLine[j])) {
-        if (isValidBRPhone(currentLine[j])) {
-          const tagGenerator = header[j].split(" ")
+        //Filter addres types phone
+      } else if (!isInvalidPhoneString(cellValue)) {
+        if (isValidBRPhone(cellValue)) {
+          const tagGenerator = columnName.split(" ")
           for (let k = 0; k < tagGenerator.length; k++) {
             if (tagGenerator[k] == "phone") {
               tagGenerator.splice(k, 1)
             }
           }
-          objPhone.addresses.push({
+          objPhone.addreses.push({
             type: "phone",
             tags: tagGenerator,
-            address: getAbsolutePhone(currentLine[j].trim()),
+            addres: getAbsolutePhone(cellValue.trim()),
           })
         }
 
-      //Filter invisible field
-      } else if (header[j].includes("invisible")) {
-        if (typeof currentLine[j] === "string") {
-          let validationYesOrNo = false
-          currentLine[j] == "yes"
-            ? (validationYesOrNo = true)
-            : currentLine[j] == "y"
-            ? (validationYesOrNo = true)
-            : currentLine[j] == "1"
-            ? (validationYesOrNo = true)
-            : (validationYesOrNo = false)
-          objGeneral[header[j]] = validationYesOrNo
+        //Filter invisible field
+      } else if (columnName.includes("invisible")) {
+        if (typeof cellValue === "string") {
+          objGeneral[columnName] = isValidParameter(cellValue.toLowerCase())
         }
 
-      //Filter see_all field
-      } else if (header[j].includes("see_all")) {
-        if (typeof currentLine[j] === "string") {
-          let validationYesOrNo = false
-          currentLine[j] == "yes"
-            ? (validationYesOrNo = true)
-            : currentLine[j] == "y"
-            ? (validationYesOrNo = true)
-            : currentLine[j] == "1"
-            ? (validationYesOrNo = true)
-            : (validationYesOrNo = false)
-          objGeneral[header[j]] = validationYesOrNo
+        //Filter see_all field
+      } else if (columnName.includes("see_all")) {
+        if (typeof cellValue === "string") {
+          objGeneral[columnName] = isValidParameter(cellValue.toLowerCase())
         }
 
-      //Data abnormal discarted use for show the user check if lost important data and adjust if necessary
-      } else if (
-        currentLine[j].trim() === "" ||
-        header[j].includes("phone") ||
-        header[j].includes("email")
-      ) {
+        //Data abnormal discarted use for show the user check if lost important data and adjust if necesary
+      } else if (cellValue.trim() === "" || /phone|email/.test(columnName)) {
         dataDiscarted.push({
           eid: currentLine[header.indexOf("eid")],
-          [header[j]]: currentLine[j].trim(),
+          [columnName]: cellValue.trim(),
         })
       } else {
-        objGeneral[header[j]] = currentLine[j].trim()
+        objGeneral[columnName] = cellValue.trim()
       }
     }
 
-    //Assign header obj and clean
-    for (assignHeaderObj in objHeaderDuplicated) {
-      objGeneral[assignHeaderObj] = objHeaderDuplicated[assignHeaderObj]
-      objHeaderDuplicated[assignHeaderObj] = []
+    //Asign header obj and clean
+    for (asignHeaderObj in objHeaderDuplicated) {
+      objGeneral[asignHeaderObj] = objHeaderDuplicated[asignHeaderObj]
+      objHeaderDuplicated[asignHeaderObj] = []
     }
 
-    //Assign email addresses and clean
-    objGeneral.addresses = []
-    for (objOfAdresses of objEmail.addresses) {
-      objGeneral.addresses.push(objOfAdresses)
-      objEmail.addresses = []
+    //Asign email addreses and clean
+    objGeneral.addreses = []
+    for (objOfAdreses of objEmail.addreses) {
+      objGeneral.addreses.push(objOfAdreses)
+      objEmail.addreses = []
     }
 
-    //Assign phone addresses and clean
-    for (objOfAdresses of objPhone.addresses) {
-      objGeneral.addresses.push(objOfAdresses)
-      objPhone.addresses = []
+    //Asign phone addreses and clean
+    for (objOfAdreses of objPhone.addreses) {
+      objGeneral.addreses.push(objOfAdreses)
+      objPhone.addreses = []
     }
 
     json.push(objGeneral)
@@ -229,9 +219,8 @@ try {
 
   //Write in file with parse to JSON
   fs.writeFileSync("output.json", JSON.stringify(jsonAdjusted, null, 4))
-
 } catch (err) {
-  console.error(`Proccess failed, try again. Error: ${err}`)
+  console.error(`Procces failed, try again. Error: ${err}`)
 }
 
 //In Output1.json example not consider two emails typed in the field "email Parent" for person eid 1222
