@@ -1,0 +1,16 @@
+{
+  "name": "csvtojsonintegrator",
+  "version": "1.0.0",
+  "description": "This application is for transform and regularize CSV data to JSON, can be used in integration apps",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "Carlos Lima",
+  "license": "ISC",
+  "dependencies": {
+    "google-libphonenumber": "^3.2.25",
+    "lodash": "^4.17.21"
+  }
+}
