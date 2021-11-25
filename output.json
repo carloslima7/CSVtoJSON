@@ -28,20 +28,20 @@
                 "addres": "dad.appleseed@exemplo.com"
             },
             {
-                "type": "email",
-                "tags": [
-                    "Financial",
-                    "Responsible"
-                ],
-                "addres": "mom.appleseed@exemplo.com"
-            },
-            {
                 "type": "phone",
                 "tags": [
                     "Pedagogical",
                     "Responsible"
                 ],
                 "addres": "5511999911234"
+            },
+            {
+                "type": "email",
+                "tags": [
+                    "Financial",
+                    "Responsible"
+                ],
+                "addres": "mom.appleseed@exemplo.com"
             },
             {
                 "type": "phone",
@@ -59,6 +59,13 @@
                 "addres": "john.appleseed1@exemplo.com"
             },
             {
+                "type": "phone",
+                "tags": [
+                    "Student"
+                ],
+                "addres": "5511999901235"
+            },
+            {
                 "type": "email",
                 "tags": [
                     "Pedagogical",
@@ -73,13 +80,6 @@
                     "Responsible"
                 ],
                 "addres": "dad.appleseed2@exemplo.com"
-            },
-            {
-                "type": "phone",
-                "tags": [
-                    "Student"
-                ],
-                "addres": "5511999901235"
             },
             {
                 "type": "phone",
@@ -110,6 +110,13 @@
                 "addres": "mary.knight@exemplo.com"
             },
             {
+                "type": "phone",
+                "tags": [
+                    "Student"
+                ],
+                "addres": "5512999901235"
+            },
+            {
                 "type": "email",
                 "tags": [
                     "Pedagogical",
@@ -124,13 +131,6 @@
                     "Responsible"
                 ],
                 "addres": "mom.knight@exemplo.com"
-            },
-            {
-                "type": "phone",
-                "tags": [
-                    "Student"
-                ],
-                "addres": "5512999901235"
             }
         ]
     },
@@ -151,20 +151,20 @@
                 "addres": "jack.littleton@exemplo.com"
             },
             {
-                "type": "email",
-                "tags": [
-                    "Financial",
-                    "Responsible"
-                ],
-                "addres": "mom.littleton@exemplo.com"
-            },
-            {
                 "type": "phone",
                 "tags": [
                     "Pedagogical",
                     "Responsible"
                 ],
                 "addres": "5513999911236"
+            },
+            {
+                "type": "email",
+                "tags": [
+                    "Financial",
+                    "Responsible"
+                ],
+                "addres": "mom.littleton@exemplo.com"
             },
             {
                 "type": "phone",
@@ -194,6 +194,13 @@
                 "addres": "kate.goldman@exemplo.com"
             },
             {
+                "type": "phone",
+                "tags": [
+                    "Student"
+                ],
+                "addres": "5514999901237"
+            },
+            {
                 "type": "email",
                 "tags": [
                     "Pedagogical",
@@ -208,13 +215,6 @@
                     "Responsible"
                 ],
                 "addres": "mom.goldman@exemplo.com"
-            },
-            {
-                "type": "phone",
-                "tags": [
-                    "Student"
-                ],
-                "addres": "5514999901237"
             },
             {
                 "type": "phone",

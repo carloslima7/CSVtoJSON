@@ -69,7 +69,7 @@ try {
   const dataDiscarted = []
   const jsonAdjusted = []
   const objHeaderDuplicated = {}
-  const objEmail = {}
+  const objAddresses = {}
   const objPhone = {}
 
   const file = fs.readFileSync("input.csv", "utf8").replace(/[\r]/g, "")
@@ -87,8 +87,7 @@ try {
   for (let i = 1; i < normalizedLines.length; i++) {
     let currentLine = normalizedLines[i].split(",")
     const objGeneral = {}
-    objEmail.addreses = []
-    objPhone.addreses = []
+    objAddresses.addreses = []
 
     //Iterate take columns
     for (let j = 0; j < header.length; j++) {
@@ -140,7 +139,7 @@ try {
                 tagGenerator.splice(k, 1)
               }
             }
-            objEmail.addreses.push({
+            objAddresses.addreses.push({
               type: "email",
               tags: tagGenerator,
               addres: emailValue.trim(),
@@ -157,7 +156,7 @@ try {
               tagGenerator.splice(k, 1)
             }
           }
-          objPhone.addreses.push({
+          objAddresses.addreses.push({
             type: "phone",
             tags: tagGenerator,
             addres: getAbsolutePhone(cellValue.trim()),
@@ -193,17 +192,11 @@ try {
       objHeaderDuplicated[asignHeaderObj] = []
     }
 
-    //Asign email addreses and clean
+    //Asign email and phone addreses and clean
     objGeneral.addreses = []
-    for (objOfAdreses of objEmail.addreses) {
+    for (objOfAdreses of objAddresses.addreses) {
       objGeneral.addreses.push(objOfAdreses)
-      objEmail.addreses = []
-    }
-
-    //Asign phone addreses and clean
-    for (objOfAdreses of objPhone.addreses) {
-      objGeneral.addreses.push(objOfAdreses)
-      objPhone.addreses = []
+      objAddresses.addreses = []
     }
 
     json.push(objGeneral)
