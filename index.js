@@ -168,7 +168,6 @@ try {
           objGeneral[columnName] = isValidParameter(cellValue.toLowerCase())
         }
 
-        //Filter see_all field
       }  else if (cellValue.trim() === "" || /phone|email/.test(columnName)) {
         dataDiscarted.push({
           eid: currentLine[header.indexOf("eid")],
