@@ -70,7 +70,6 @@ try {
   const jsonAdjusted = []
   const objHeaderDuplicated = {}
   const objAddresses = {}
-  const objPhone = {}
 
   const file = fs.readFileSync("input.csv", "utf8").replace(/[\r]/g, "")
   const splitedLines = file.split("\n")
