@@ -11,13 +11,13 @@
             "Sala 5",
             "Sala 6"
         ],
-        "addreses": [
+        "addresses": [
             {
                 "type": "email",
                 "tags": [
                     "Student"
                 ],
-                "addres": "john.appleseed@exemplo.com"
+                "address": "john.appleseed@exemplo.com"
             },
             {
                 "type": "email",
@@ -25,7 +25,7 @@
                     "Pedagogical",
                     "Responsible"
                 ],
-                "addres": "dad.appleseed@exemplo.com"
+                "address": "dad.appleseed@exemplo.com"
             },
             {
                 "type": "phone",
@@ -33,7 +33,7 @@
                     "Pedagogical",
                     "Responsible"
                 ],
-                "addres": "5511999911234"
+                "address": "5511999911234"
             },
             {
                 "type": "email",
@@ -41,7 +41,7 @@
                     "Financial",
                     "Responsible"
                 ],
-                "addres": "mom.appleseed@exemplo.com"
+                "address": "mom.appleseed@exemplo.com"
             },
             {
                 "type": "phone",
@@ -49,21 +49,21 @@
                     "Financial",
                     "Responsible"
                 ],
-                "addres": "5511999921234"
+                "address": "5511999921234"
             },
             {
                 "type": "email",
                 "tags": [
                     "Student"
                 ],
-                "addres": "john.appleseed1@exemplo.com"
+                "address": "john.appleseed1@exemplo.com"
             },
             {
                 "type": "phone",
                 "tags": [
                     "Student"
                 ],
-                "addres": "5511999901235"
+                "address": "5511999901235"
             },
             {
                 "type": "email",
@@ -71,7 +71,7 @@
                     "Pedagogical",
                     "Responsible"
                 ],
-                "addres": "dad.appleseed1@exemplo.com"
+                "address": "dad.appleseed1@exemplo.com"
             },
             {
                 "type": "email",
@@ -79,7 +79,7 @@
                     "Pedagogical",
                     "Responsible"
                 ],
-                "addres": "dad.appleseed2@exemplo.com"
+                "address": "dad.appleseed2@exemplo.com"
             },
             {
                 "type": "phone",
@@ -87,7 +87,7 @@
                     "Pedagogical",
                     "Responsible"
                 ],
-                "addres": "5511999911235"
+                "address": "5511999911235"
             }
         ]
     },
@@ -101,20 +101,20 @@
             "Sala 5",
             "Sala 6"
         ],
-        "addreses": [
+        "addresses": [
             {
                 "type": "email",
                 "tags": [
                     "Student"
                 ],
-                "addres": "mary.knight@exemplo.com"
+                "address": "mary.knight@exemplo.com"
             },
             {
                 "type": "phone",
                 "tags": [
                     "Student"
                 ],
-                "addres": "5512999901235"
+                "address": "5512999901235"
             },
             {
                 "type": "email",
@@ -122,7 +122,7 @@
                     "Pedagogical",
                     "Responsible"
                 ],
-                "addres": "dad.knight@exemplo.com"
+                "address": "dad.knight@exemplo.com"
             },
             {
                 "type": "email",
@@ -130,7 +130,7 @@
                     "Financial",
                     "Responsible"
                 ],
-                "addres": "mom.knight@exemplo.com"
+                "address": "mom.knight@exemplo.com"
             }
         ]
     },
@@ -142,13 +142,13 @@
         "group": [
             "Sala 1"
         ],
-        "addreses": [
+        "addresses": [
             {
                 "type": "email",
                 "tags": [
                     "Student"
                 ],
-                "addres": "jack.littleton@exemplo.com"
+                "address": "jack.littleton@exemplo.com"
             },
             {
                 "type": "phone",
@@ -156,7 +156,7 @@
                     "Pedagogical",
                     "Responsible"
                 ],
-                "addres": "5513999911236"
+                "address": "5513999911236"
             },
             {
                 "type": "email",
@@ -164,7 +164,7 @@
                     "Financial",
                     "Responsible"
                 ],
-                "addres": "mom.littleton@exemplo.com"
+                "address": "mom.littleton@exemplo.com"
             },
             {
                 "type": "phone",
@@ -172,7 +172,7 @@
                     "Financial",
                     "Responsible"
                 ],
-                "addres": "5513999921236"
+                "address": "5513999921236"
             }
         ]
     },
@@ -185,20 +185,20 @@
             "Sala 6",
             "Sala 7"
         ],
-        "addreses": [
+        "addresses": [
             {
                 "type": "email",
                 "tags": [
                     "Student"
                 ],
-                "addres": "kate.goldman@exemplo.com"
+                "address": "kate.goldman@exemplo.com"
             },
             {
                 "type": "phone",
                 "tags": [
                     "Student"
                 ],
-                "addres": "5514999901237"
+                "address": "5514999901237"
             },
             {
                 "type": "email",
@@ -206,7 +206,7 @@
                     "Pedagogical",
                     "Responsible"
                 ],
-                "addres": "dad.goldman@exemplo.com"
+                "address": "dad.goldman@exemplo.com"
             },
             {
                 "type": "email",
@@ -214,7 +214,7 @@
                     "Financial",
                     "Responsible"
                 ],
-                "addres": "mom.goldman@exemplo.com"
+                "address": "mom.goldman@exemplo.com"
             },
             {
                 "type": "phone",
@@ -222,7 +222,7 @@
                     "Financial",
                     "Responsible"
                 ],
-                "addres": "5514999921237"
+                "address": "5514999921237"
             }
         ]
     }

@@ -86,7 +86,7 @@ try {
   for (let i = 1; i < normalizedLines.length; i++) {
     let currentLine = normalizedLines[i].split(",")
     const objGeneral = {}
-    objAddresses.addreses = []
+    objAddresses.addresses = []
 
     //Iterate take columns
     for (let j = 0; j < header.length; j++) {
@@ -112,7 +112,7 @@ try {
           }
         }
 
-        //Filter addres types email
+        //Filter address types email
       } else if (!(cellValue.indexOf("@") == -1) && !(cellValue.indexOf(".") == -1)) {
         const quantityOfEmails = cellValue.match(/@/g).length
         if (quantityOfEmails >= 1) {
@@ -130,7 +130,7 @@ try {
             }
           }
 
-          //Populate object email addreses
+          //Populate object email addresses
           for (emailValue of adjustmentEmailArray) {
             const tagGenerator = columnName.split(" ")
             for (let k = 0; k < tagGenerator.length; k++) {
@@ -138,15 +138,15 @@ try {
                 tagGenerator.splice(k, 1)
               }
             }
-            objAddresses.addreses.push({
+            objAddresses.addresses.push({
               type: "email",
               tags: tagGenerator,
-              addres: emailValue.trim(),
+              address: emailValue.trim(),
             })
           }
         }
 
-        //Filter addres types phone
+        //Filter address types phone
       } else if (!isInvalidPhoneString(cellValue)) {
         if (isValidBRPhone(cellValue)) {
           const tagGenerator = columnName.split(" ")
@@ -155,27 +155,21 @@ try {
               tagGenerator.splice(k, 1)
             }
           }
-          objAddresses.addreses.push({
+          objAddresses.addresses.push({
             type: "phone",
             tags: tagGenerator,
-            addres: getAbsolutePhone(cellValue.trim()),
+            address: getAbsolutePhone(cellValue.trim()),
           })
         }
 
-        //Filter invisible field
-      } else if (columnName.includes("invisible")) {
+        //Filter invisible and see_all field
+      } else if (/invisible|see_all/.test(columnName)) {
         if (typeof cellValue === "string") {
           objGeneral[columnName] = isValidParameter(cellValue.toLowerCase())
         }
 
         //Filter see_all field
-      } else if (columnName.includes("see_all")) {
-        if (typeof cellValue === "string") {
-          objGeneral[columnName] = isValidParameter(cellValue.toLowerCase())
-        }
-
-        //Data abnormal discarted use for show the user check if lost important data and adjust if necesary
-      } else if (cellValue.trim() === "" || /phone|email/.test(columnName)) {
+      }  else if (cellValue.trim() === "" || /phone|email/.test(columnName)) {
         dataDiscarted.push({
           eid: currentLine[header.indexOf("eid")],
           [columnName]: cellValue.trim(),
@@ -185,17 +179,17 @@ try {
       }
     }
 
-    //Asign header obj and clean
-    for (asignHeaderObj in objHeaderDuplicated) {
-      objGeneral[asignHeaderObj] = objHeaderDuplicated[asignHeaderObj]
-      objHeaderDuplicated[asignHeaderObj] = []
+    //Assign header obj and clean
+    for (assignHeaderObj in objHeaderDuplicated) {
+      objGeneral[assignHeaderObj] = objHeaderDuplicated[assignHeaderObj]
+      objHeaderDuplicated[assignHeaderObj] = []
     }
 
-    //Asign email and phone addreses and clean
-    objGeneral.addreses = []
-    for (objOfAdreses of objAddresses.addreses) {
-      objGeneral.addreses.push(objOfAdreses)
-      objAddresses.addreses = []
+    //Assign email and phone addresses and clean
+    objGeneral.addresses = []
+    for (objOfAdreses of objAddresses.addresses) {
+      objGeneral.addresses.push(objOfAdreses)
+      objAddresses.addresses = []
     }
 
     json.push(objGeneral)
@@ -212,7 +206,7 @@ try {
   //Write in file with parse to JSON
   fs.writeFileSync("output.json", JSON.stringify(jsonAdjusted, null, 4))
 } catch (err) {
-  console.error(`Procces failed, try again. Error: ${err}`)
+  console.error(`Proccess failed, try again. Error: ${err}`)
 }
 
 //In Output1.json example not consider two emails typed in the field "email Parent" for person eid 1222
